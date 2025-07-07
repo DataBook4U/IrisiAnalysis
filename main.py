@@ -2,6 +2,7 @@
 The main.py is intended for loading data, training models, analysing models and testing predictions
 """
 
+import pandas as pd
 from data import DataLoader
 from models import KNNModel
 
