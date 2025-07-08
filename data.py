@@ -9,9 +9,30 @@ from sklearn.preprocessing import StandardScaler            #Ermöglicht Standar
 
 #Maybe move to seperate file like "explore.py"??
 
+class TransformData:
+
+    def __init__(self, data):
+        self.data = data
+        self.df = None
+
+    def ToDF(self):
+        self.df = pd.DataFrame(data=self.data, columns=self.data.feature_names)
+        self.df["target"] = self.data.target
+        return self.df
+
+    def ShowHead(self):
+        if self.df is not None:
+            return self.df.head()
+        else:
+            return "DataFrame was not created!"
+
+
+#Load Iris DataSet from Library
 iris = load_iris()
 
-df = pd.DataFrame(data=iris, columns=iris.feature_names)
-df['target'] = iris.target
+#Use transformer and create DF
+transformer = TransformData(iris)
+df_iris = transformer.ToDF()
+print(transformer.ShowHead())
+print(transformer.df)
 
-print(df.head())
