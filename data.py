@@ -26,6 +26,17 @@ class TransformData:
         else:
             return "DataFrame was not created!"
 
+class ExploreData:
+
+    def __init__(self, DataFrame, DataColumn):
+        self.DataFrame = DataFrame
+        self.DataColumn = DataColumn
+        self.average = None     #to get average value of a column
+        self.HasNull = None     #to get amount of Null values in a column
+
+    def GetAverage(self):
+        self.average = self.DataFrame[self.DataColumn].mean()
+        print("Average value of " + self.DataColumn + " : " + str(self.average))
 
 #Load Iris DataSet from Library
 iris = load_iris()
@@ -36,3 +47,6 @@ df_iris = transformer.ToDF()
 print(transformer.ShowHead())
 print(transformer.df)
 
+#Get Data Insights
+test1 = ExploreData(df_iris, "petal length (cm)")
+test1.GetAverage()
