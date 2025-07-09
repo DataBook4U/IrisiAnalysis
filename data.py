@@ -14,17 +14,19 @@ class TransformData:
     def __init__(self, dataset):
         self.dataset = dataset
         self.df = None
+        self.columns = None
 
+    #Transforms original Dataset and gives back a pandas DataFrame
     def ToDF(self):
         self.df = pd.DataFrame(data=self.dataset.data, columns=self.dataset.feature_names)
         self.df["target"] = self.dataset.target
         return self.df
 
-    def ShowHead(self):
-        if self.df is not None:
-            return self.df.head()
-        else:
-            return "DataFrame was not created!"
+    #Gives back List of the DataFrame columns
+    def ColumnsDF(self):
+        self.columns = self.df.columns.tolist()
+        return self.columns
+
 
 class ExploreData:
 
@@ -44,9 +46,12 @@ iris = load_iris()
 #Use transformer and create DF
 transformer = TransformData(iris)
 df_iris = transformer.ToDF()
-print(transformer.ShowHead())
-print(transformer.df)
+columns = transformer.ColumnsDF()
+print(columns)
+#print(transformer.df)
 
 #Get Data Insights
 test1 = ExploreData(df_iris, "petal length (cm)")
 test1.GetAverage()
+
+#Create a function that goes through the DF by all the columns and prints out their average values
