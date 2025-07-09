@@ -11,13 +11,13 @@ from sklearn.preprocessing import StandardScaler            #Ermöglicht Standar
 
 class TransformData:
 
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, dataset):
+        self.dataset = dataset
         self.df = None
 
     def ToDF(self):
-        self.df = pd.DataFrame(data=self.data, columns=self.data.feature_names)
-        self.df["target"] = self.data.target
+        self.df = pd.DataFrame(data=self.dataset.data, columns=self.dataset.feature_names)
+        self.df["target"] = self.dataset.target
         return self.df
 
     def ShowHead(self):
