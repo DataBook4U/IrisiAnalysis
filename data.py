@@ -40,6 +40,11 @@ class ExploreData:
         self.average = self.DataFrame[self.DataColumn].mean()
         print("Average value of " + self.DataColumn + " : " + str(self.average))
 
+    def GetAverageAll(self, columns):
+        for column in columns:
+            self.average = self.DataFrame[column].mean()
+            print("Average value of " + column + " : " + str(self.average))
+
 #Load Iris DataSet from Library
 iris = load_iris()
 
@@ -52,6 +57,6 @@ print(columns)
 
 #Get Data Insights
 test1 = ExploreData(df_iris, "petal length (cm)")
-test1.GetAverage()
+test1.GetAverageAll(columns)
 
 #Create a function that goes through the DF by all the columns and prints out their average values
