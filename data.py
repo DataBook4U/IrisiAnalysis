@@ -30,15 +30,25 @@ class TransformData:
 
 class ExploreData:
 
-    def __init__(self, DataFrame, DataColumn):
+    def __init__(self, DataFrame, DataFrameColumns):
         self.DataFrame = DataFrame
-        self.DataColumn = DataColumn
+        self.DataFrameColumns = DataFrameColumns
         self.average = None     #to get average value of a column
-        self.HasNull = None     #to get amount of Null values in a column
+        self.HasNull = 0    #to get amount of Null values in a column
 
-    def GetAverage(self):
-        self.average = self.DataFrame[self.DataColumn].mean()
-        print("Average value of " + self.DataColumn + " : " + str(self.average))
+    #Berechne den Mittelwert für eine Spalte im Datensatz:
+    def GetAverageAll(self):
+        for column in self.DataFrameColumns[:-1]:                                     #the last element is the target column that I don't want to look at for now
+            self.average = self.DataFrame[column].mean()
+            print("Average value of " + column + " : " + str(self.average))
+
+    #Gib mir an wie viele Null Werte jeweils in meinen Spalten enthalten sind:
+    def GetNullAll(self):
+        for column in self.DataFrameColumns:
+            null_count = self.DataFrame[column].isnull().sum()
+            print("The column " + column + " has: " + str(null_count) + " null values.")
+
+
 
 #Load Iris DataSet from Library
 iris = load_iris()
@@ -51,7 +61,7 @@ print(columns)
 #print(transformer.df)
 
 #Get Data Insights
-test1 = ExploreData(df_iris, "petal length (cm)")
-test1.GetAverage()
+test1 = ExploreData(df_iris, columns)
+test1.GetNullAll()
 
 #Create a function that goes through the DF by all the columns and prints out their average values
