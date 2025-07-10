@@ -45,12 +45,8 @@ class ExploreData:
     #Gib mir an wie viele Null Werte jeweils in meinen Spalten enthalten sind:
     def GetNullAll(self):
         for column in self.DataFrameColumns:
-            for value in column:
-                if value == "NaN":
-                    self.HasNull += 1
-                else:
-                    self.HasNull = self.HasNull
-            print("The column " + column + " has: " + str(self.HasNull) + " values.")
+            null_count = self.DataFrame[column].isnull().sum()
+            print("The column " + column + " has: " + str(null_count) + " null values.")
 
 
 
