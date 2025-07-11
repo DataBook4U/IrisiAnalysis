@@ -47,14 +47,14 @@ class ExploreData:
         for column in self.DataFrameColumns:
             null_count = self.DataFrame[column].isnull().sum()
             if null_count > 0:
+                print("The column " + column + " has " + str(null_count) + " NULL values.")
                 self.HasNull = True
-                print("The column " + column + " has: " + str(null_count) + " null values.")
-            if null_count == 0:
-                print("The column " + column + " has no null values")
-        if self.HasNull == False:
-            print("There are no missing values in your DataFrame")
-        else:
-            pass
+            else:
+                self.HasNull = False
+        if not self.HasNull:                #My version was: if self.HasNull == False:
+                print("There are no missing values in your DataFrame")
+
+
 
 
 
