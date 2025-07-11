@@ -34,7 +34,7 @@ class ExploreData:
         self.DataFrame = DataFrame
         self.DataFrameColumns = DataFrameColumns
         self.average = None     #to get average value of a column
-        self.HasNull = 0    #to get amount of Null values in a column
+        self.HasNull = False    #to get amount of Null values in a column
 
     #Berechne den Mittelwert für eine Spalte im Datensatz:
     def GetAverageAll(self):
@@ -46,7 +46,15 @@ class ExploreData:
     def GetNullAll(self):
         for column in self.DataFrameColumns:
             null_count = self.DataFrame[column].isnull().sum()
-            print("The column " + column + " has: " + str(null_count) + " null values.")
+            if null_count > 0:
+                self.HasNull = True
+                print("The column " + column + " has: " + str(null_count) + " null values.")
+            if null_count == 0:
+                print("The column " + column + " has no null values")
+        if self.HasNull == False:
+            print("There are no missing values in your DataFrame")
+        else:
+            pass
 
 
 
@@ -65,3 +73,8 @@ test1 = ExploreData(df_iris, columns)
 test1.GetNullAll()
 
 #Create a function that goes through the DF by all the columns and prints out their average values
+
+
+#Would be cool to have a script that goes through a chosen dataset and tells you:
+#   *If Null Values in DataSet and how many
+#   *The Mean Values of
